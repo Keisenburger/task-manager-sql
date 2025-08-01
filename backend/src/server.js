@@ -1,13 +1,14 @@
 import express from "express";
 import { PrismaClient } from "@prisma/client";
 import dotenv from "dotenv";
-
+import cors from "cors";
 dotenv.config();
 
 const prisma = new PrismaClient();
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 app.post("/auth/register", async (req, res) => {
   const { email, password } = req.body;
@@ -67,7 +68,7 @@ app.delete("/tasks/:id", async (req, res) => {
   res.json(task);
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
